@@ -30,17 +30,17 @@ export function Gallery({ photos }: { photos: Photo[] }) {
           </button>
         ))}
       </div>
-      {idx !== null && (
-        <div role="dialog" aria-modal="true" aria-label={photos[idx].alt} className="fixed inset-0 z-[60] flex items-center justify-center bg-ink/95 p-4" onClick={close}>
+      {idx !== null && photos[idx] && (() => { const cur = photos[idx]!; return (
+        <div role="dialog" aria-modal="true" aria-label={cur.alt} className="fixed inset-0 z-[60] flex items-center justify-center bg-ink/95 p-4" onClick={close}>
           <button onClick={close} aria-label="Fechar" autoFocus className="absolute right-4 top-4 rounded-full bg-ink-foreground/10 p-2 text-ink-foreground"><X /></button>
           <button onClick={(e) => { e.stopPropagation(); move(-1); }} aria-label="Anterior" className="absolute left-4 rounded-full bg-ink-foreground/10 p-3 text-ink-foreground"><ChevronLeft /></button>
           <figure className="max-h-full max-w-5xl" onClick={(e) => e.stopPropagation()}>
-            <img src={photos[idx].src} alt={photos[idx].alt} className="max-h-[80vh] rounded-xl object-contain" />
-            <figcaption className="mt-3 text-center text-sm text-ink-foreground/80">{photos[idx].caption ?? photos[idx].alt} · {idx + 1}/{photos.length}</figcaption>
+            <img src={cur.src} alt={cur.alt} className="max-h-[80vh] rounded-xl object-contain" />
+            <figcaption className="mt-3 text-center text-sm text-ink-foreground/80">{cur.caption ?? cur.alt} · {idx + 1}/{photos.length}</figcaption>
           </figure>
           <button onClick={(e) => { e.stopPropagation(); move(1); }} aria-label="Próxima" className="absolute right-4 rounded-full bg-ink-foreground/10 p-3 text-ink-foreground"><ChevronRight /></button>
         </div>
-      )}
+      ); })()}
     </>
   );
 }
